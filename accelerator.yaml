@@ -34,8 +34,8 @@ accelerator:
 engine:
   merge:
     - include: [ "**" ]
-      exclude: [ "tap/workload.yaml", "src/main/resources/application.yaml" ]
-    - include: [ "tap/workload.yaml" ]
+      exclude: [ "config/workload.yaml", "src/main/resources/application.yaml" ]
+    - include: [ "config/workload.yaml" ]
       chain:
         - type: ReplaceText
           substitutions:
