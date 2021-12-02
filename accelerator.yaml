@@ -7,25 +7,45 @@ accelerator:
     - spring
 
   options:
-    - name: bannerText
-      label: Banner Text
+    - name: title
+      label: Title
       display: true
-      description: Title text for the application banner header
+      description: Title text for the application
       inputType: text
       dataType: string
       defaultValue: "Tanzu Sensor Database"
 
-    - name: bannerColor
-      label: Banner Color
+    - name: gitUrl
+      label: Git Repository URL
       display: true
-      description: Text color for the application banner header
-      inputType: radio
+      description: Git Repository URL of the application's source code
+      inputType: text
       dataType: string
-      choices:
-        - text: Salmon
-          value: Salmon
-        - text: Azure
-          value: Azure
-        - text: Magenta
-          value: Magenta
-      defaultValue: Salmon
+      defaultValue: "https://github.com/tanzu-end-to-end/spring-sensors.git"
+
+    - name: gitBranch
+      label: Git Repository Branch
+      display: true
+      description: Git Repository Branch of the application's source code
+      inputType: text
+      dataType: string
+      defaultValue: "main"
+
+engine:
+  merge:
+    - include: [ "**" ]
+      exclude: [ "tap/workload.yaml", "src/main/resources/application.yaml" ]
+    - include: [ "tap/workload.yaml" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: https://github.com/tanzu-end-to-end/spring-sensors.git
+              with: "#gitUrl"
+            - text: main
+              with: "#gitBranch"
+    - include: [ "src/main/resources/application.yaml" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+             - text: Sensor Database
+               with: "#title"
