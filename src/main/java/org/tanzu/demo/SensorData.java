@@ -1,8 +1,9 @@
 package org.tanzu.demo;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
 
 @Entity
 public class SensorData {
@@ -15,6 +16,19 @@ public class SensorData {
     public SensorData() {
     }
 
+    public static SensorData generate(UUID id) {
+        return new SensorData(id, generateTemperature(), generatePressure());
+    }
+
+    private static double generateTemperature() {
+        return Math.random() * 100;
+    }
+
+    private static double generatePressure() {
+        return Math.random() * 100;
+    }
+
+    
     public SensorData(UUID id, double temperature, double pressure) {
         this.id = id;
         this.temperature = temperature;
