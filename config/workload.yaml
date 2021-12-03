@@ -10,10 +10,3 @@ spec:
       url: https://github.com/tanzu-end-to-end/spring-sensors.git
       ref:
         branch: main
-  serviceClaims:
-    - name: rmq
-      ref:
-        apiVersion: rabbitmq.com/v1beta1
-        kind: RabbitmqCluster
-        name: rmq-1
-
