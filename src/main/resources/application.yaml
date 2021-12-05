@@ -8,6 +8,13 @@ org:
       bindings:
         boot:
           enable: true
-management.endpoints.web.exposure.include: "*"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  
+  endpoint:
+    health:
+      show-details: always
 
 title: Sensor Database
