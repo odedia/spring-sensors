@@ -21,7 +21,7 @@ public class SensorsUiController {
     public String fetchUI(Model model) {
         model.addAttribute("sensors", sensorRepository.findAll());
         model.addAttribute("title", title);
-        return "index";
+        return "index"; 
     }
 }
 

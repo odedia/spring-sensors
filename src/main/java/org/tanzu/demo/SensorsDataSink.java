@@ -28,7 +28,7 @@ public class SensorsDataSink {
     public void updateSensorData() {
         var sensorData = SensorData.generate(SENSOR_ID);
         log.info("Generated sensorData data: {}", sensorData);
-        sensorRepository.save(sensorData);
+        sensorRepository.save(sensorData);  
     }
 
 }
