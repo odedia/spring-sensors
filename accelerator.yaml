@@ -45,7 +45,7 @@ engine:
       chain:
       - type: ReplaceText
         substitutions:
-        - text: https://github.com/replace-me/spring-sensors.git
+        - text: https://github.com/tanzu-end-to-end/spring-sensors.git
           with: "#gitUrl"
         - text: main
           with: "#gitBranch"
