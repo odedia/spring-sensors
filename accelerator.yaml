@@ -30,12 +30,18 @@ accelerator:
       inputType: text
       dataType: string
       defaultValue: "main"
+    - name: repositoryPrefix
+      inputType: text
+      label: Prefix for the container image repository
+      defaultValue: dev.local
+      required: true
+
 
 engine:
   merge:
-    - include: [ "**" ]
-      exclude: [ "config/workload.yaml", "src/main/resources/application.yaml" ]
-    - include: [ "config/workload.yaml" ]
+    - include: [ "**/*" ]
+      exclude: [ "config/*.yaml", "Tiltfile", "README.md", "catalog/*.yaml" ]
+    - include: [ "config/*.yaml", "Tiltfile" ]
       chain:
         - type: ReplaceText
           substitutions:
@@ -43,6 +49,29 @@ engine:
               with: "#gitUrl"
             - text: main
               with: "#gitBranch"
+      - type: ReplaceText
+        substitutions:
+        - text: tanzu-java-web-app
+          with: "#artifactId"
+      - type: ReplaceText
+        substitutions:
+        - text: your-registry.io/project
+          with: "#repositoryPrefix"
+    - include: [ "README.md" ]
+      chain:
+      - type: ReplaceText
+        substitutions:
+        - text: tanzu-java-web-app
+          with: "#artifactId"
+    - include: [ "catalog/*.yaml" ]
+      chain:
+      - type: ReplaceText
+        substitutions:
+        - text: tanzu-java-web-app
+          with: "#artifactId"
+      - type: RewritePath
+        rewriteTo: "#filename"
+
     - include: [ "src/main/resources/application.yaml" ]
       chain:
         - type: ReplaceText
