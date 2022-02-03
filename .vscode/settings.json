@@ -1,4 +1,3 @@
 {
-  "tanzu.sourceImage": "example.com/example",
   "java.server.launchMode": "Standard"
 }

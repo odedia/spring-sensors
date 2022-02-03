@@ -1,5 +1,6 @@
-allow_k8s_contexts('tap', 'eduk8s')
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='your-registry.io/project/tanzu-java-web-app-source')
+allow_k8s_contexts('tap')
+allow_k8s_contexts('eduk8s')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.apps.cf.tanzutime.com/apps/spring-sensors')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='default')
 
