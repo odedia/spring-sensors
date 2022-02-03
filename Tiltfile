@@ -1,19 +1,23 @@
-
-load('.tanzu/tanzu_tilt_extensions.py', 'tanzu_k8s_yaml')
 allow_k8s_contexts('tap')
-allow_k8s_contexts('tap-cluster')
-SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='harbor.apps.cf.tanzutime.com/apps/spring-sensors')
+SOURCE_IMAGE = os.getenv("SOURCE_IMAGE", default='your-registry.io/project/tanzu-java-web-app-source')
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
+NAMESPACE = os.getenv("NAMESPACE", default='default')
 
-custom_build('harbor.apps.cf.tanzutime.com/apps/spring-sensors',
-    "tanzu apps workload apply -f config/workload.yaml --live-update \
-      --local-path " + LOCAL_PATH + " --source-image " + SOURCE_IMAGE + " --yes && \
-    .tanzu/wait.sh spring-sensors",
-  ['pom.xml', './target/classes'],
-  live_update = [
-    sync('./target/classes', '/workspace/BOOT-INF/classes')
-  ],
-  skips_local_docker=True
+k8s_custom_deploy(
+    'tanzu-java-web-app',
+    apply_cmd="tanzu apps workload apply -f config/workload.yaml --live-update" +
+               " --local-path " + LOCAL_PATH +
+               " --source-image " + SOURCE_IMAGE +
+               " --namespace " + NAMESPACE +
+               " --yes >/dev/null" +
+               " && kubectl get workload tanzu-java-web-app --namespace " + NAMESPACE + " -o yaml",
+    delete_cmd="tanzu apps workload delete -f config/workload.yaml --namespace " + NAMESPACE + " --yes",
+    deps=['pom.xml', './target/classes'],
+    container_selector='workload',
+    live_update=[
+      sync('./target/classes', '/workspace/BOOT-INF/classes')
+    ]
 )
 
-tanzu_k8s_yaml('spring-sensors', 'harbor.apps.cf.tanzutime.com/apps/spring-sensors', './config/workload.yaml')
+k8s_resource('tanzu-java-web-app', port_forwards=["8080:8080"],
+            extra_pod_selectors=[{'serving.knative.dev/service': 'tanzu-java-web-app'}])
