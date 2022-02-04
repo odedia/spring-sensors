@@ -1,7 +1,7 @@
 accelerator:
-  displayName: Spring Sensors
-  description: A Spring Sensors application 
-  iconUrl: https://dashboard.snapcraft.io/site_media/appmedia/2018/11/indicator-sensors_r8EdpLP.png
+  displayName: Demo Web App
+  description: A sample Spring Boot web application built with Tanzu supply-chain
+  iconUrl: https://github.com/sample-accelerators/icons/raw/master/icon-boot.png
   tags:
   - spring
   - web

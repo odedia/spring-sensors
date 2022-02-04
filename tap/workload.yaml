@@ -1,0 +1,21 @@
+#@ load("@ytt:data", "data")
+
+#@ def labels():
+apps.tanzu.vmware.com/workload-type: web
+#@ if/end data.values.enableTesting == "false":
+test: "false"
+#@ if/end data.values.enableScanning == "false":
+scan: "false"
+#@ end
+
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: #@ data.values.artifactId
+  labels: #@ labels()
+spec:
+  source:
+    git:
+      url: #@ data.values.gitUrl
+      ref:
+        branch: #@ data.values.gitBranch
