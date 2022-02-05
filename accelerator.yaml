@@ -70,7 +70,7 @@ engine:
     expression: "#securityConfig == \"both\" ? \"true\" : #securityConfig == \"test\" ? \"true\" : \"false\""
   merge:
   - include: [ "**/*" ]
-    exclude: [ "tap/*.yaml", "Tiltfile", "README.md", "catalog/*.yaml", ".vscode/*" ]
+    exclude: [ "config/*.yaml", "Tiltfile", "README.md", "catalog/*.yaml", ".vscode/*" ]
   - condition: "#devMode"
     include: [ "Tiltfile", ".vscode/*" ]
     chain:
@@ -96,8 +96,8 @@ engine:
         with: "#artifactId"
     - type: RewritePath
       rewriteTo: "#filename"
-  - include: [ "tap/*.yaml" ]
+  - include: [ "config/*.yaml" ]
     chain: # Chain selected yaml files to YTT
     - type: YTT
-    exclude: [ "tap/values.yaml" ]
+    exclude: [ "config/values.yaml" ]
     
