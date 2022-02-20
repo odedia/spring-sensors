@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: tap-web-app
-  description: Demo Java Web App
+  name: spring-sensors-workshop
+  description: Spring Sensors
   tags:
     - app-accelerator
     - java
