@@ -2,6 +2,7 @@
 
 #@ def labels():
 apps.tanzu.vmware.com/workload-type: web
+app.kubernetes.io/part-of: spring-sensors
 #@ if/end data.values.enableTesting == "false":
 test: "false"
 #@ if/end data.values.enableScanning == "false":
