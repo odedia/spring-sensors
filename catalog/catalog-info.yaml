@@ -2,11 +2,16 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: spring-sensors-workshop
-  description: Spring Sensors
+  description: Spring Sensors - A sensor monitoring app
+  links:
+    - url: https://github.com/odedia/spring-sensors
+      title: GitHub Repository for this Component
+      icon: github
   tags:
     - app-accelerator
+    - spring-sensors
+    - spring-boot
     - java
-    - spring
     - web
     - tanzu
   annotations:
